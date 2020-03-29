@@ -121,12 +121,11 @@ function sendFile() {
 		dataType: 'json',
 		crossDomain: true,
 		success: function(res) {
-			//alert(res);
 			console.log(res);
-			var possibility = 100 * Math.sqrt(parseFloat(res));
-			var covidStatus = possibility > 50 ? 'positive' : 'negative';
-			var resultText = Math.round(possibility) + '% COVID-19 \n ' + covidStatus;
-			document.getElementById('covidSlider').style.left = Math.round(200 * res - 1);
+			var normalized = Math.sqrt(parseFloat(res));
+			var covidStatus = normalized > 0.5 ? 'positive' : 'negative';
+			var resultText = Math.round(100 * normalized) + '% COVID-19 \n ' + covidStatus;
+			document.getElementById('covidSlider').style.left = Math.round(200 * normalized - 1);
 			document.getElementById('textoverimg').innerText = resultText;
 			document.querySelector('.input-group').style.display = 'flex';
 			document.getElementById('progressContainer').style.display = 'none';
